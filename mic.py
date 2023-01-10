@@ -9,6 +9,8 @@ import threading
 import click
 import torch
 import numpy as np
+from playsound import playsound
+
 
 @click.command()
 @click.option("--model", default="base", help="Model to use", type=click.Choice(["tiny","base", "small","medium","large"]))
@@ -48,6 +50,7 @@ def record_audio(audio_queue, energy, pause, dynamic_energy, save_file, temp_dir
         while True:
             #get and save audio to wav file
             audio = r.listen(source)
+            playsound("sound2.mp3")
             if save_file:
                 data = io.BytesIO(audio.get_wav_data())
                 audio_clip = AudioSegment.from_file(data)
